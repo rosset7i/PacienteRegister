@@ -1,0 +1,62 @@
+<h2>Insira seus dados</h2>
+
+<button
+  (click)="onCadastrar()"
+  [disabled]="isFormVisible"
+  class="btn btn-primary m-2"
+>
+  Cadastrar Paciente
+</button>
+
+<button
+  (click)="onCadastrar()"
+  [disabled]="isListaVisible"
+  class="btn btn-primary m-2"
+>
+  Listar Pacientes
+</button>
+
+<div *ngIf="isListaVisible">
+  <app-pesquisa-paciente
+    [pacientesLista]="pacientes"
+    (listaEmmiter)="onFiltrar($event)"
+  ></app-pesquisa-paciente>
+
+  <table class="table mt-2">
+    <thead>
+      <tr>
+        <th>#Id</th>
+        <th>Nome</th>
+        <th>Data de nascimento</th>
+        <th>Endereço</th>
+        <th>Observação</th>
+        <th>Editar</th>
+        <th>Excluir</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of pacientes; let index = index">
+        <th>{{ i.id }}</th>
+        <th>{{ i.nome }}</th>
+        <th>{{ i.dataDeNascimento }}</th>
+        <th>{{ i.endereco }}</th>
+        <th>{{ i.observacao }}</th>
+        <th>
+          <a href="editar/{{ i.id }}"
+            ><button class="btn btn-primary">Editar</button></a
+          >
+        </th>
+        <th>
+          <button class="btn btn-danger" (click)="onRemove(i.id)">
+            Excluir
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-paciente-form
+  *ngIf="isFormVisible"
+  (onSubmitEmmiter)="onSubmit($event)"
+></app-paciente-form>

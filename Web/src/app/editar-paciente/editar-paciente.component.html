@@ -1,0 +1,7 @@
+<h2>Editar Paciente</h2>
+
+<app-paciente-form
+  [modelo]="paciente"
+  *ngIf="paciente"
+  (onSubmitEmmiter)="onSubmit($event)"
+></app-paciente-form>
